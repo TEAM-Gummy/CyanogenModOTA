@@ -44,7 +44,7 @@
                     4 => [MODEL] (ex. i9100, i9300, etc.)
                 )
             */
-            preg_match_all('/cm-([0-9\.]+-)(\d+-)?([a-zA-Z0-9]+-)?([a-zA-Z0-9]+)/', $fileName, $tokens);
+            preg_match_all('/Gummy-([0-9\.]+-)(\d+-)?([a-zA-Z0-9]+-)?([a-zA-Z0-9]+)/', $fileName, $tokens);
             $tokens = $this->removeTrailingDashes($tokens);
 
             $this->buildProp = explode("\n", file_get_contents('zip://'.$this->filePath.'#system/build.prop') );
@@ -57,7 +57,7 @@
             $this->timestamp = filemtime($this->filePath);
             $this->incremental = $this->getBuildPropValue('ro.build.version.incremental');
             $this->api_level = $this->getBuildPropValue('ro.build.version.sdk');
-            $this->model = $this->getBuildPropValue('ro.cm.device');
+            $this->model = $this->getBuildPropValue('ro.tg.device');
         }
         public function isValid($params){
             $ret = false;
