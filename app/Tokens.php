@@ -38,17 +38,17 @@
         public function __construct($fileName, $physicalPath, $baseUrl){
             /*
                 $tokens = array(
-                    1 => [CM VERSION] (ex. 10.1.x, 10.2, 11, etc.)
+                    1 => [GUMMY VERSION] (ex. M.1, etc.)
                     2 => [DATE OF BUILD] (ex. 20140130)
                     3 => [CHANNEL OF THE BUILD] (ex. RC, RC2, NIGHTLY, etc.)
                     4 => [MODEL] (ex. i9100, i9300, etc.)
                 )
             */
-            preg_match_all('/Gummy-([0-9\.]+-)(\d+-)?([a-zA-Z0-9]+-)?([a-zA-Z0-9]+)/', $fileName, $tokens);
+            preg_match_all('/Gummy-([a-zA-Z\.]+[0-9]+-)?([0-9]+-[0-9]+-[0-9]+-)?([a-zA-Z0-9]+-)?([a-zA-Z0-9]+)/', $fileName, $tokens);
             $tokens = $this->removeTrailingDashes($tokens);
 
-            $this->buildProp = explode("\n", file_get_contents('zip://'.$this->filePath.'#system/build.prop') );
             $this->filePath = $physicalPath.'/'.$fileName;
+            $this->buildProp = explode("\n", file_get_contents('zip://'.$this->filePath.'#system/build.prop') );
             $this->baseUrl = $baseUrl;
             $this->channel = $this->getChannel( str_replace(range(0,9), '', $tokens[3]) );
             $this->filename = $fileName;

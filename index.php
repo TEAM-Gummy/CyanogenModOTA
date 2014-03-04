@@ -26,7 +26,7 @@
     require 'app/Tokens.php';
     require 'app/TokensCollection.php';
 
-    Flight::route('/api', function(){
+    Flight::route('/', function(){
         $ret = array(
             'id' => null,
             'results' => array(),
