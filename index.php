@@ -29,7 +29,7 @@
     Flight::route('/', function(){
         $ret = array(
             'id' => null,
-            'results' => array(),
+            'result' => array(),
             'error' => null
         );
 
