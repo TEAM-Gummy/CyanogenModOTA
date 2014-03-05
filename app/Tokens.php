@@ -44,16 +44,17 @@
                     4 => [MODEL] (ex. i9100, i9300, etc.)
                 )
             */
-            preg_match_all('/Gummy-([a-zA-Z\.]+[0-9]+-)?([0-9]+-[0-9]+-[0-9]+-)?([a-zA-Z0-9]+-)?([a-zA-Z0-9]+)/', $fileName, $tokens);
-            $tokens = $this->removeTrailingDashes($tokens);
+            preg_match_all('/Gummy-([a-zA-Z\.]+[0-9]+)-?([0-9]+-[0-9]+-[0-9]+)-?([a-zA-Z0-9]+)-?([a-zA-Z0-9]+)/', $fileName, $tokens);
+            //$tokens = $this->removeTrailingDashes($tokens);
 
             $this->filePath = $physicalPath.'/'.$fileName;
             $this->buildProp = explode("\n", file_get_contents('zip://'.$this->filePath.'#system/build.prop') );
             $this->baseUrl = $baseUrl;
-            $this->channel = $this->getChannel( str_replace(range(0,9), '', $tokens[3]) );
+            $this->channel = $this->getChannel( str_replace(range(0,9), '', $tokens[3][0]) );
             $this->filename = $fileName;
-            $this->url = $this->getUrl();
+            $this->url = $this->getUrl($this->url);
             $this->changelogUrl = $this->getChangelogUrl();
+            $this->md5file = $this->getMD5($this->filePath);
             $this->timestamp = filemtime($this->filePath);
             $this->incremental = $this->getBuildPropValue('ro.build.version.incremental');
             $this->api_level = $this->getBuildPropValue('ro.build.version.sdk');
@@ -131,7 +132,7 @@
         }
         private function getUrl($file){
             if ( empty($file) ) $file = $this->filename;
-            return 'http://' . $_SERVER['SERVER_NAME'] . $this->baseUrl . '/_builds/' . $file;
+            return 'http://' . $_SERVER['SERVER_NAME'] . '/_builds/' . $file;
         }
         private function getChangelogUrl(){
             return str_replace('.zip', '.txt', $this->url);
