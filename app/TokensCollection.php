@@ -74,14 +74,14 @@
 
             foreach ($this->list as $token) {
                 array_push($ret, array(
-                    'incremental' => $token->incremental,
-                    'api_level' => $token->api_level,
                     'url' => $token->url,
                     'timestamp' => $token->timestamp,
                     'md5sum' => $token->md5file,
-                    'changes' => $token->changelogUrl,
+                    'filename' => $token->filename,
+                    'incremental' => $token->incremental,
                     'channel' => $token->channel,
-                    'filename' => $token->filename
+                    'changes' => $token->changelogUrl,
+                    'api_level' => $token->api_level
                 ));
             }
 
