@@ -44,7 +44,7 @@
                     4 => [MODEL] (ex. i9100, i9300, etc.)
                 )
             */
-            preg_match_all('/Gummy-([a-zA-Z\.]+[0-9]+)-?([0-9]+-[0-9]+-[0-9]+)-?([a-zA-Z0-9]+)-?([a-zA-Z0-9]+)/', $fileName, $tokens);
+            preg_match_all('/Gummy-([a-zA-Z0-9\.]+[0-9]+)-?([0-9]+-[0-9]+-[0-9]+)-?([a-zA-Z0-9]+)-?([a-zA-Z0-9]+)/', $fileName, $tokens);
             //$tokens = $this->removeTrailingDashes($tokens);
 
             $this->filePath = $physicalPath.'/'.$fileName;
