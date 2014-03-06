@@ -34,7 +34,7 @@
         );
 
         $tokens = new TokenCollection(realpath('./_builds/'));
-        $ret['results'] = $tokens->getUpdateList();
+        $ret['result'] = $tokens->getUpdateList();
 
         Flight::json($ret);
     });
